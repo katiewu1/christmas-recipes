@@ -44,8 +44,8 @@ const RecipeDetails = () => {
           <p>{recipe.Description}</p>
           <p>Ingredients</p>
           <ul style={{ listStyleType: 'circle', columns: 2 }}>
-            {recipe.Ingredients.map((item) => (
-              <li key={item}>{item}</li>
+            {recipe.Ingredients.map((item, index) => (
+              <li key={index}>{item}</li>
             ))}
           </ul>
           <p>Cooking instruction</p>
