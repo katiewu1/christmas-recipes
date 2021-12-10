@@ -5,6 +5,7 @@ const RecipeDetails = () => {
   const [recipe, setRecipe] = useState(null)
   const [isEmpty, setIsEmpty] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+
   const { name } = useParams()
   const navigate = useNavigate()
 
@@ -12,13 +13,13 @@ const RecipeDetails = () => {
     fetch(`https://christmas-recipes.herokuapp.com/recipes/${name}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log('data: ', data)
+        // console.log('data: ', data)
         if (data.success) {
           // console.log('data.response: ', data.response)
-          console.log('data success true: ', data)
+          // console.log('data success true: ', data)
           setRecipe(data.response)
         } else {
-          console.log('data.response success false: ', data.response)
+          // console.log('data.response success false: ', data.response)
           setErrorMessage(data.response)
           setIsEmpty(true)
         }

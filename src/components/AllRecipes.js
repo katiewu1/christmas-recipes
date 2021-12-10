@@ -9,6 +9,7 @@ const AllRecipes = () => {
   const [loading, setLoading] = useState(false)
   const [isEmpty, setIsEmpty] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+
   const navigate = useNavigate()
   // custom hook - builds on useLocation to parse the query string
   const { search } = useLocation()
@@ -52,7 +53,7 @@ const AllRecipes = () => {
   useEffect(() => {
     if (isEmpty) {
       // if there is no author found, navigate to page 404 and display the response message
-      // pass data when navigating with state
+      // pass data with state when navigating
       navigate('/404', { state: { message: errorMessage } })
     }
   }, [isEmpty, navigate, errorMessage])
