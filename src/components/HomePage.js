@@ -5,7 +5,7 @@ const HomePage = () => {
     <>
       <div className='homepage'>
         <p>
-          Website built in React using Router to test my API with node.js
+          Website built in React using React Router to test my API with node.js
           Express.
         </p>
         <p>GitHub links:</p>
