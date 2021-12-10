@@ -13,13 +13,11 @@ export const App = () => {
     <BrowserRouter>
       <HeaderNavbar />
       <Routes>
-        {/* instead of Redirect we can use now Route with path of '*' */}
-        <Route path='*' element={<NotFound />} />
+        <Route path='/404' element={<NotFound />} />
         <Route path='/' element={<HomePage />} />
         <Route path='authors' element={<ListOfAuthors />} />
         <Route path='recipes' element={<AllRecipes />} />
         <Route path='recipes/:name' element={<RecipeDetails />} />
-        {/* <Route path='/404' element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
   )

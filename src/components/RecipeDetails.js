@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 const RecipeDetails = () => {
   const [recipe, setRecipe] = useState(null)
   const [isEmpty, setIsEmpty] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const { name } = useParams()
   const navigate = useNavigate()
 
@@ -11,9 +12,14 @@ const RecipeDetails = () => {
     fetch(`https://christmas-recipes.herokuapp.com/recipes/${name}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
-          setRecipe(data)
+        console.log('data: ', data)
+        if (data.success) {
+          // console.log('data.response: ', data.response)
+          console.log('data success true: ', data)
+          setRecipe(data.response)
         } else {
+          console.log('data.response success false: ', data.response)
+          setErrorMessage(data.response)
           setIsEmpty(true)
         }
       })
@@ -22,9 +28,12 @@ const RecipeDetails = () => {
 
   useEffect(() => {
     if (isEmpty) {
-      navigate('*')
+      console.log('errorMessage: ', errorMessage)
+      // if there is no recipe found, navigate to page 404 and display the response message
+      // pass data when navigating with state
+      navigate('/404', { state: { message: errorMessage } })
     }
-  }, [isEmpty, navigate])
+  }, [isEmpty, navigate, errorMessage])
 
   return (
     <div>

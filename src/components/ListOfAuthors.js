@@ -11,7 +11,7 @@ const ListOfAuthors = () => {
     fetch('https://christmas-recipes.herokuapp.com/authors')
       .then((res) => res.json())
       .then((data) => {
-        setList(data)
+        setList(data.response)
       })
       .finally(setLoading(false))
   }, [])

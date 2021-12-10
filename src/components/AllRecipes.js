@@ -8,6 +8,7 @@ const AllRecipes = () => {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [isEmpty, setIsEmpty] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
   // custom hook - builds on useLocation to parse the query string
   const { search } = useLocation()
@@ -27,10 +28,11 @@ const AllRecipes = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          if (data) {
+          if (data.success) {
             setAllRecipes(data.response.results)
             setPageInfo(data.response)
           } else {
+            setErrorMessage(data.response)
             setIsEmpty(true)
           }
         })
@@ -49,9 +51,11 @@ const AllRecipes = () => {
 
   useEffect(() => {
     if (isEmpty) {
-      navigate('*')
+      // if there is no author found, navigate to page 404 and display the response message
+      // pass data when navigating with state
+      navigate('/404', { state: { message: errorMessage } })
     }
-  }, [isEmpty, navigate])
+  }, [isEmpty, navigate, errorMessage])
 
   const handlePrevPageChange = () => {
     setPage(page - 1)
@@ -88,8 +92,8 @@ const AllRecipes = () => {
               Next page
             </button>
           </div>
-          {/* if we have an author - display it? uppercase? */}
-          <p>{author}</p>
+          {/* if we have an author - display it in uppercase */}
+          {author && <p>{author.toUpperCase()}</p>}
           <ul className='ul-recipes'>
             {allRecipes.map((recipe) => (
               <Link
